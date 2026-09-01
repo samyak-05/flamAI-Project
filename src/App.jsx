@@ -5,13 +5,13 @@ import ItineraryView from './ItineraryView';
 
 function App() {
   const [tripInput, setTripInput] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | loading | error | success
+  const [status, setStatus] = useState('idle'); 
   const [itinerary, setItinerary] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
   const abortRef = useRef(null);
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    e?.preventDefault();
     if (!tripInput.trim()) return;
 
     abortRef.current?.abort();
@@ -23,6 +23,8 @@ function App() {
 
     try {
       const { raw, error } = await generate(tripInput, controller.signal);
+
+      if (abortRef.current !== controller) return;
 
       if (error) {
         setStatus('error');
@@ -40,7 +42,14 @@ function App() {
       setItinerary(parsed.data);
       setStatus('success');
     } catch (err) {
-      if (err.name === 'AbortError') return;
+      if (abortRef.current !== controller) return;
+
+      if (err.name === 'AbortError') {
+        setStatus('error');
+        setErrorMsg('Request timed out. Please try again.');
+        return;
+      }
+
       setStatus('error');
       setErrorMsg('Failed to reach the model. Please try again.');
     }
@@ -109,6 +118,12 @@ function App() {
             <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
               <p className="font-medium">Something went wrong</p>
               <p className="mt-1 text-red-600">{errorMsg}</p>
+              <button
+                onClick={handleSubmit}
+                className="mt-3 rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-700"
+              >
+                Try again
+              </button>
             </div>
           )}
 
