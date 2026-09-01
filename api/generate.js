@@ -11,7 +11,17 @@ return ONLY valid JSON matching this exact shape, no markdown, no extra text:
   "days": [
     { "day": 1, "stops": [ { "name": "string", "time": "string", "notes": "string" } ] }
   ]
-}`;
+}
+
+Important planning rules:
+- Group stops within each day by geographic proximity. Do not mix places 
+  that are far apart (e.g. different directions from the base city) on the 
+  same day.
+- If the user asks for a mix of nearby and distant places, dedicate separate 
+  days to each cluster rather than combining them.
+- Order stops within a day in a sensible travel sequence (e.g. by proximity 
+  or logical route), not randomly.
+- Use realistic travel times between stops when assigning times.`;
 
   try {
     const { tripDescription } = req.body;
