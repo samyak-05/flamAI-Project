@@ -5,7 +5,7 @@ A small React app that takes a free-form trip description, sends it to an LLM, a
 **Live demo:** https://flamai-project.onrender.com/
 (Note: hosted on Render's free tier — if inactive, the first request may take 20-50 seconds to wake up.)
 
-**Youtube Video Link:** https://youtu.be/swt-gQwalhI
+**Youtube Video Link:** https://youtu.be/cgyldUfao8k
 
 ## What it does
 
