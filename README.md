@@ -5,6 +5,8 @@ A small React app that takes a free-form trip description, sends it to an LLM, a
 **Live demo:** https://flamai-project.onrender.com/
 (Note: hosted on Render's free tier — if inactive, the first request may take 20-50 seconds to wake up.)
 
+**Youtube Video Link:** https://youtu.be/swt-gQwalhI
+
 ## What it does
 
 Type something like *"4 days in Mumbai visiting famous places and enjoying Maharashtrian food"* and the app generates an itinerary you can:
